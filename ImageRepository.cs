@@ -14,12 +14,12 @@ namespace Penguin.Cms.Images.Repositories
     [SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix")]
     public partial class ImageRepository : AuditableEntityRepository<Image>
     {
-        protected ISecurityProvider<Image> SecurityProvider { get; set; }
         private const string URL_EMPTY_MESSAGE = "Url can not be null or whitespace";
+        protected ISecurityProvider<Image> SecurityProvider { get; set; }
 
         public ImageRepository(IPersistenceContext<Image> dbContext, ISecurityProvider<Image> securityProvider = null, MessageBus messageBus = null) : base(dbContext, messageBus)
         {
-            SecurityProvider = securityProvider;
+            this.SecurityProvider = securityProvider;
         }
 
         public System.Collections.Generic.IEnumerable<Image> Get(List<string> tags = null)
@@ -52,7 +52,7 @@ namespace Penguin.Cms.Images.Repositories
                 throw new System.ArgumentException(URL_EMPTY_MESSAGE, nameof(Uri));
             }
 
-            List<Image> allImages = this.ToList().Where(i => i.Uri.StartsWith(Uri, System.StringComparison.OrdinalIgnoreCase)).Where(i => SecurityProvider.TryCheckAccess(i)).ToList();
+            List<Image> allImages = this.ToList().Where(i => i.Uri.StartsWith(Uri, System.StringComparison.OrdinalIgnoreCase)).Where(i => this.SecurityProvider.TryCheckAccess(i)).ToList();
 
             return allImages;
         }
