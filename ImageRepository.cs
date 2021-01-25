@@ -9,9 +9,7 @@ using System.Linq;
 
 namespace Penguin.Cms.Images.Repositories
 {
-    [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
     [SuppressMessage("Design", "CA1054:Uri parameters should not be strings")]
-    [SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix")]
     public partial class ImageRepository : AuditableEntityRepository<Image>
     {
         private const string URL_EMPTY_MESSAGE = "Url can not be null or whitespace";
