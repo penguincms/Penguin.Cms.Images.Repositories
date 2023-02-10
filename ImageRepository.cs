@@ -11,6 +11,7 @@ namespace Penguin.Cms.Images.Repositories
     public partial class ImageRepository : AuditableEntityRepository<Image>
     {
         private const string URL_EMPTY_MESSAGE = "Url can not be null or whitespace";
+
         protected ISecurityProvider<Image> SecurityProvider { get; set; }
 
         public ImageRepository(IPersistenceContext<Image> dbContext, ISecurityProvider<Image> securityProvider = null, MessageBus messageBus = null) : base(dbContext, messageBus)
